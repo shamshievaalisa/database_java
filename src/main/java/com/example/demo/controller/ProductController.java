@@ -7,6 +7,7 @@ import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // ⚠️ Обязательный импорт
 import java.util.List;
 
 @RestController
@@ -27,13 +28,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto create(@RequestBody ProductCreateDto dto) {
+    public ProductDto create(@Valid @RequestBody ProductCreateDto dto) { // ✅ @Valid добавлен
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
     public ProductDto update(@PathVariable Long id,
-                             @RequestBody ProductUpdateDto dto) {
+                             @Valid @RequestBody ProductUpdateDto dto) { // ✅ @Valid добавлен
         return service.update(id, dto);
     }
 

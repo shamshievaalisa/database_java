@@ -7,6 +7,7 @@ import com.example.demo.service.OrderItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // ⚠️ Импорт для @Valid
 import java.util.List;
 
 @RestController
@@ -30,13 +31,13 @@ public class OrderItemController {
     }
 
     @PostMapping
-    public OrderItemDto create(@RequestBody OrderItemCreateDto dto) {
+    public OrderItemDto create(@Valid @RequestBody OrderItemCreateDto dto) { // ✅
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
     public OrderItemDto update(@PathVariable Long id,
-                               @RequestBody OrderItemUpdateDto dto) {
+                               @Valid @RequestBody OrderItemUpdateDto dto) { // ✅
         return service.update(id, dto);
     }
 

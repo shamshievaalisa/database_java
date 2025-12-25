@@ -30,6 +30,15 @@ public class SecurityConfig {
                         sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
+                // 🔒 ДОБАВЛЕНА ЗАЩИТА ОТ XSS — безопасные HTTP-заголовки
+                .headers(headers -> {
+                    headers.contentTypeOptions();
+                    headers.frameOptions(frame -> frame.deny());
+                    headers.contentSecurityPolicy(csp -> csp
+                            .policyDirectives("default-src 'self'; script-src 'self'; object-src 'none';")
+                    );
+                })
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
 

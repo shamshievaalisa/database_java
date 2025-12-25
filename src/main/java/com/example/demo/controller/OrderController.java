@@ -7,6 +7,7 @@ import com.example.demo.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // ⚠️ Импорт для @Valid
 import java.util.List;
 
 @RestController
@@ -27,13 +28,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDto create(@RequestBody OrderCreateDto dto) {
+    public OrderDto create(@Valid @RequestBody OrderCreateDto dto) { // ✅ @Valid добавлен
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
     public OrderDto update(@PathVariable Long id,
-                           @RequestBody OrderUpdateDto dto) {
+                           @Valid @RequestBody OrderUpdateDto dto) { // ✅ @Valid добавлен
         return service.update(id, dto);
     }
 

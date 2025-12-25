@@ -7,6 +7,7 @@ import com.example.demo.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // ⚠️ Импорт для @Valid
 import java.util.List;
 
 @RestController
@@ -25,17 +26,19 @@ public class ClientController {
     public ClientDto one(@PathVariable Long id) {
         return service.one(id);
     }
+
     @GetMapping("/count")
     public long count() {
         return service.count();
     }
+
     @PostMapping
-    public ClientDto create(@RequestBody ClientCreateDto dto) {
+    public ClientDto create(@Valid @RequestBody ClientCreateDto dto) { // ✅ @Valid добавлен
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
-    public ClientDto update(@PathVariable Long id, @RequestBody ClientUpdateDto dto) {
+    public ClientDto update(@PathVariable Long id, @Valid @RequestBody ClientUpdateDto dto) { // ✅ @Valid добавлен
         return service.update(id, dto);
     }
 
@@ -44,5 +47,4 @@ public class ClientController {
         service.delete(id);
         return "deleted";
     }
-
 }

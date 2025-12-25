@@ -7,6 +7,7 @@ import com.example.demo.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // ⚠️ Импорт для @Valid
 import java.util.List;
 
 @RestController
@@ -27,13 +28,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryDto create(@RequestBody CategoryCreateDto dto) {
+    public CategoryDto create(@Valid @RequestBody CategoryCreateDto dto) { // ✅
         return service.create(dto);
     }
 
     @PutMapping("/{id}")
     public CategoryDto update(@PathVariable Long id,
-                              @RequestBody CategoryUpdateDto dto) {
+                              @Valid @RequestBody CategoryUpdateDto dto) { // ✅
         return service.update(id, dto);
     }
 
